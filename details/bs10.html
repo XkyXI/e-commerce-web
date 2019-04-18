@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bookeater</title>
+        <link rel="stylesheet" href="../css/style.css">
+        <script type="text/javascript" src="../formScript.js"></script>
+    </head>
+    <body>
+        <!-- header and navigation bar -->
+        <h1 id="title"> <a href="../index.html">Bookeater</a> </h1>
+        <header>
+            <nav>
+                <li> <a href="../index.html">Home</a> </li>
+                <div class="headerDivider"></div>
+                <li> <a href="../bs.html">Biological Sciences</a> </li>
+                <div class="headerDivider"></div>
+                <!-- <li> <a href="bu.html">Business</a> </li>
+                <div class="headerDivider"></div> -->
+                <li> <a href="../ss.html">Social Sciences</a> </li>
+            </nav>
+        </header>
+        <section>
+            <div class="cells-title">
+                <span>Details</span>
+            </div>
+            <div class="content"> <!-- content contains an image and some descriptions -->
+                <img id="pic" src="../imgs/BS-10.jpg" alt="image of Biological Sciences 10">
+                <div id="description">
+                    <p><b>Title:</b> Discover Biology </p>
+                    <p><b>Author:</b> Richard Symanski </p>
+                    <p><b>Edition:</b> 6th edition </p>
+                    <p><b>Price:</b> $100 </p>
+                    <p><b>Year:</b> 2015 </p>
+                    <p><b>ISBN:</b> 978-0393601169 </p>
+                    <p><b>Publisher:</b> University of California, Irvine </p>
+
+                </div>
+            </div>
+            <!-- The form for users to fill to order the item -->
+            <div class="cells-title">
+                <span>Order here</span>
+            </div>
+            <form name="orderForm" action="javascript:formAction();" onsubmit="return validateForm()">
+                <p>Shipping Information</p>
+                <table>
+                    <tr>
+                        <td align="right">First Name</td>
+                        <td align="left"><input type="text" name="firstname" value="" placeholder="e.g. Peter"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Last Name</td>
+                        <td align="left"><input type="text" name="lastname" value="" placeholder="e.g. Anteater"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Phone Number</td>
+                        <td align="left"><input type="text" name="phone" value="" placeholder="###-###-####"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Quantity</td>
+                        <td align="left"><input type="text" name="quantity" value="" placeholder="e.g. 1, 2, ..."></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Shipping Address</td>
+                        <td align="left"><input type="text" name="address" value=""></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Shipping Method</td>
+                        <td align="left">
+                            <select class="ship" name="shipping">
+                                <option value="overnight">Overnight</option>
+                                <option value="expedited">2-days expedited</option>
+                                <option value="ground">6-days ground</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <p>Credit Card Information</p>
+                <table>
+                    <tr>
+                        <td align="right">Name on card</td>
+                        <td align="left"><input type="text" name="cardname" value="" placeholder="e.g. Peter Anteater"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Card Number</td>
+                        <td align="left"><input type="text" name="cardnumber" value=""></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Expiration date</td>
+                        <td align="left"><input type="text" name="exprdate" value="" placeholder="MM/YY"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Security code</td>
+                        <td align="left"><input type="text" name="cvv" value="" placeholder="e.g. 123"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">ZIP/Postal code</td>
+                        <td align="left"><input type="text" name="zipcode" value="" placeholder="e.g. 12345, 12345-6789"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+    </body>
+</html>
