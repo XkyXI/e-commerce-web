@@ -66,7 +66,7 @@ function validateForm() {
 
 function composeBody () {
     var f = document.forms["orderForm"];
-    var result = "Client infomation:";
+    var result = "Product id: " + f["id"].value + "\n\nClient infomation:";
     result += "\nFirst Name: " + f["firstname"].value +
                 "\nLast Name: " + f["lastname"].value +
                 "\nPhone Number: " + f["phone"].value +
@@ -86,6 +86,6 @@ function composeBody () {
 function formAction () {
     var email = "minghuc@uci.edu";
     var emailSubject = "Purchase from Bookeater";
-    var emailBody = escape(composeBody());
+    var emailBody = escape(composeBody()); // using escape to turn \n into a different format for mail client
     document.location = "mailto:" + email + "?subject=" + emailSubject + "&body=" + emailBody;
 }

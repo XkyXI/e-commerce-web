@@ -21,7 +21,7 @@ body {
 header {
     display: flex;
     flex-direction: row;
-    box-shadow: 0px 0px 48px -12px rgba(0, 0, 0, 1);
+    box-shadow: 0px 10px 30px -12px rgba(0, 0, 0, 1);
     margin: 20px 25px;
     padding: 20px 25px;
 }
@@ -143,8 +143,12 @@ nav li {
 }
 
 /* general style for all paragraph tags */
-p {
+p, ol, ul {
     padding-left: 50px;
+}
+
+ol, ul {
+    margin-left: 16px;
 }
 
 /* styles for form */
@@ -182,4 +186,8 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #F0F0F0;
+}
+
+input[name=id] {
+    background-color: #C0C0C0;
 }
