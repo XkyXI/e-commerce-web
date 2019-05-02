@@ -1,40 +1,51 @@
+<?php require_once "dbconnect.php"; ?>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bookeater</title>
-        <link rel="stylesheet" href="../css/style.css">
-        <script type="text/javascript" src="../formScript.js"></script>
+        <?php
+            // change the title base on the category
+            if (!isset($_GET['pid'])) {
+                exit('pid error');
+            }
+            $pid = $_GET['pid'];
+            $pid_res = $pdo->query("SELECT * FROM Books WHERE ISBN=\"$pid\"");
+            $detail = $pid_res->fetch(PDO::FETCH_ASSOC);
+            if (!isset($detail)) {
+                exit("Data error");
+            }
+            echo ('<title>Bookeater');
+            echo (' - ' .$detail['title']);
+            echo ('</title>');
+        ?>
+        <link rel="stylesheet" href="/css/style.css">
+        <script type="text/javascript" src="/formScript.js"></script>
     </head>
+
     <body>
-        <!-- header and navigation bar -->
-        <h1 id="title"> <a href="../index.html">Bookeater</a> </h1>
-        <header>
-            <nav>
-                <li> <a href="../index.html">Home</a> </li>
-                <div class="headerDivider"></div>
-                <li> <a href="../bs.html">Biological Sciences</a> </li>
-                <div class="headerDivider"></div>
-                <!-- <li> <a href="bu.html">Business</a> </li>
-                <div class="headerDivider"></div> -->
-                <li> <a href="../ss.html">Social Sciences</a> </li>
-            </nav>
-        </header>
-        <section>
-            <div class="cells-title">
-                <span>Details</span>
-            </div>
-            <div class="content"> <!-- content contains an image and some descriptions -->
-                <img id="pic" src="../imgs/BS-2.jpg" alt="image of Biological Sciences 2">
-                <div id="description">
-                    <p><b>Title:</b> Understanding Human Sexuality </p>
-                    <p><b>Author:</b> Janet Hyde, John DeLamater </p>
-                    <p><b>Edition:</b> 12th edition </p>
-                    <p><b>Price:</b> $30 </p>
-                    <p><b>Year:</b> 2013 </p>
-                    <p><b>ISBN:</b> 978-0078035395 </p>
-                    <p><b>Publisher:</b> McGraw-Hill Education </p>
-                </div>
-            </div>
+        <?php require_once "header.php"; ?>
+
+        <section> <!-- content contains an image and some descriptions -->
+            <?php
+                if (!isset($detail)) {
+                    exit('Data error');
+                }
+                echo ('<div class="cells-title"><span>Details</span></div>');
+                echo ('<div class="content"><img id="pic" src="');
+                echo ($detail['img'] .'" alt="image of '. $detail['title'] .'">');
+                echo ('<div id="description">');
+                printf('<p><b>Title:</b> %s </p>
+                        <p><b>Author:</b> %s </p>
+                        <p><b>Edition:</b> %s </p>
+                        <p><b>Price:</b> $%d </p>
+                        <p><b>Year:</b> %d </p>
+                        <p><b>ISBN:</b> %s </p>
+                        <p><b>Publisher:</b> %s </p>',
+                        $detail['title'], $detail['author'], $detail['edition'],
+                        $detail['price'], $detail['year'], $detail['ISBN'], $detail['publisher']);
+                echo('</div></div>');
+            ?>
+
             <!-- The form for users to fill to order the item -->
             <div class="cells-title">
                 <span>Order here</span>
@@ -44,7 +55,9 @@
                 <table>
                     <tr>
                         <td align="right">Product Identifier</td>
-                        <td><input type="text" name="id" value="978-0078035395" readonly></td>
+                        <td><input type="text" name="id" value=
+                            <?php if (isset($detail['ISBN'])) echo $detail['ISBN']; ?>
+                            readonly></td>
                     </tr>
                     <tr>
                         <td align="right">First Name</td>
