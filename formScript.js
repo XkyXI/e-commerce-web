@@ -60,7 +60,6 @@ function validateForm() {
         return false;
     }
 
-    console.log("All valid");
     return true;
 }
 

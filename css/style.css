@@ -14,46 +14,46 @@ body {
 /* style of title */
 #title a {
     text-decoration: none;
-    color: #808080;
+    color: #606060;
 }
 
-/* navigation bar */
-header {
-    display: flex;
-    flex-direction: row;
-    box-shadow: 0px 10px 30px -12px rgba(0, 0, 0, 1);
-    margin: 20px 25px;
-    padding: 20px 25px;
-}
-
-/* the divider inside navigation bar */
-.headerDivider {
-    border-left: 2px solid black;
-    height: 70%;
-}
-
-/* bold text in the navigation bar  */
-.active {
-    font-weight: bold;
-}
 /* navigation bar styles */
 nav {
-    list-style: none;
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
+    box-shadow: 0px 10px 30px -12px rgba(0, 0, 0, 1);
+    margin: 20px 25px;
+    background-color: #808080;
 }
 
 nav a {
-    font-size: 1.2rem;
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
     text-decoration: none;
-    color: inherit;
+    font-size: 1.1rem;
 }
 
-nav li {
-    margin-left: 10px;
-    margin-right: 10px;
+nav a:hover {
+    background-color: #888888;
 }
+
+nav a.active {
+    background-color: #5F5F5F;
+}
+
+.search-container {
+    margin: 6px 6px 6px auto;
+}
+
+nav input[type=text] {
+    border: none;
+    margin-left: 0px;
+}
+
 /* format the sub header */
 .cells-title {
     margin: 30px;
@@ -96,8 +96,13 @@ nav li {
     background: black;
     color: #E6E6E6;
     border-radius: 5px;
-    font-size: 0.8rem;
+    font-size: 1rem;
     opacity: .8;
+
+    white-space: nowrap;
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 /* the specific positions for cells'text */
 .book-author {
@@ -151,8 +156,8 @@ ol, ul {
     margin-left: 16px;
 }
 
-/* styles for form */
-form {
+/* styles for ordering form */
+.order-form {
     box-shadow: 0px 0px 48px -12px rgba(0, 0, 0, 0.2);
     margin: 20px 25px;
     padding: 20px 25px;

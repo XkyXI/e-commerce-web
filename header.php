@@ -1,19 +1,27 @@
-<h1 id="title"> <a href="index.html">Bookeater</a> </h1>
+<?php require_once "dbconnect.php"; ?>
+
+<h1 id="title"> <a href="/">Bookeater</a> </h1>
 <header>
     <nav>
-        <li> <a href="index.html">Home</a> </li>
         <?php
-            // query all the different categories and put them in a li
+            // query all the different categories and put them in the nav bar
             if (!isset($cty_id)) $cty_id = "";
-            
-            $res = $pdo->query('SELECT cid, category FROM Categories');
-            while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
-                echo ('<div class="headerDivider"></div>');
-                echo ('<li> <a href="category.php?category=' . $row['cid'] . '"');
-                if ($row['cid'] == $cty_id)
-                    echo (' class="active"');
-                echo('>' . $row['category'] . '</a> </li>');
+
+            if ($cty_id == "index") echo ('<a href="/" class="active">Home</a>');
+            else                    echo ('<a href="/">Home</a>');
+
+            $cty_stmt->execute();
+            $res = $cty_stmt->fetchAll();
+            foreach ($res as $row) {
+                $active = ($row['cid'] == $cty_id) ? ' class="active"' : "";
+                printf('<a href="category.php?category=%s" %s> %s </a>',
+                        $row['cid'], $active, $row['category']);
             }
         ?>
+        <div class="search-container">
+            <form action="/search.php" method="get">
+                <input type="text" name="search" required="" placeholder="Type here to search...">
+            </form>
+        </div>
     </nav>
 </header>

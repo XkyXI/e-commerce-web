@@ -6,18 +6,7 @@
     </head>
     <body>
         <!-- header and navigation bar -->
-        <h1 id="title"> <a href="index.html">Bookeater</a> </h1>
-        <header>
-            <nav>
-                <li> <a href="index.html" class="active">Home</a> </li>
-                <div class="headerDivider"></div>
-                <li> <a href="category.php?category=BS">Biological Science</a> </li>
-                <div class="headerDivider"></div>
-                <!-- <li> <a href="bu.html">Business</a> </li>
-                <div class="headerDivider"></div> -->
-                <li> <a href="category.php?category=SS">Social Science</a> </li>
-            </nav>
-        </header>
+        <?php $cty_id = "index"; require_once "header.php" ?>
         <!-- main content  -->
         <section>
             <div class="cells-title">

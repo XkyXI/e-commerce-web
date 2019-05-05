@@ -3,21 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <?php
-            // change the title base on the category
-            if (!isset($_GET['pid'])) {
-                exit('pid error');
-            }
-            $pid = $_GET['pid'];
-            $pid_res = $pdo->query("SELECT * FROM Books WHERE ISBN=\"$pid\"");
-            $detail = $pid_res->fetch(PDO::FETCH_ASSOC);
-            if (!isset($detail)) {
-                exit("Data error");
-            }
-            echo ('<title>Bookeater');
-            echo (' - ' .$detail['title']);
-            echo ('</title>');
-        ?>
+        <title>Bookeater</title>
         <link rel="stylesheet" href="/css/style.css">
         <script type="text/javascript" src="/formScript.js"></script>
     </head>
@@ -27,9 +13,12 @@
 
         <section> <!-- content contains an image and some descriptions -->
             <?php
-                if (!isset($detail)) {
-                    exit('Data error');
-                }
+                if (!isset($_GET['pid'])) exit('<p>Product identifer error...</p>');
+                $pid = $_GET['pid'];
+                $pid_res = $pdo->query("SELECT * FROM Books WHERE ISBN='$pid'");
+                $detail = $pid_res->fetch(PDO::FETCH_ASSOC);
+                if (!isset($detail)) exit("<p>Data error...</p>");
+
                 echo ('<div class="cells-title"><span>Details</span></div>');
                 echo ('<div class="content"><img id="pic" src="');
                 echo ($detail['img'] .'" alt="image of '. $detail['title'] .'">');
@@ -37,7 +26,7 @@
                 printf('<p><b>Title:</b> %s </p>
                         <p><b>Author:</b> %s </p>
                         <p><b>Edition:</b> %s </p>
-                        <p><b>Price:</b> $%d </p>
+                        <p><b>Price:</b> $%.2f </p>
                         <p><b>Year:</b> %d </p>
                         <p><b>ISBN:</b> %s </p>
                         <p><b>Publisher:</b> %s </p>',
@@ -50,42 +39,42 @@
             <div class="cells-title">
                 <span>Order here</span>
             </div>
-            <form name="orderForm" action="javascript:formAction();" onsubmit="return validateForm()">
+            <form class="order-form" method="post" name="orderForm" action="/order.php" onsubmit="return true">
                 <p>Shipping Information</p>
                 <table>
                     <tr>
                         <td align="right">Product Identifier</td>
                         <td><input type="text" name="id" value=
                             <?php if (isset($detail['ISBN'])) echo $detail['ISBN']; ?>
-                            readonly></td>
+                            readonly style="cursor:default;"></td>
                     </tr>
                     <tr>
                         <td align="right">First Name</td>
-                        <td align="left"><input type="text" name="firstname" value="" placeholder="e.g. Peter"></td>
+                        <td align="left"><input type="text" name="firstname" value="Peter" placeholder="e.g. Peter"></td>
                     </tr>
                     <tr>
                         <td align="right">Last Name</td>
-                        <td align="left"><input type="text" name="lastname" value="" placeholder="e.g. Anteater"></td>
+                        <td align="left"><input type="text" name="lastname" value="Anteater" placeholder="e.g. Anteater"></td>
                     </tr>
                     <tr>
                         <td align="right">Phone Number</td>
-                        <td align="left"><input type="text" name="phone" value="" placeholder="###-###-####"></td>
+                        <td align="left"><input type="text" name="phone" value="213-123-1231" placeholder="###-###-####"></td>
                     </tr>
                     <tr>
                         <td align="right">Quantity</td>
-                        <td align="left"><input type="text" name="quantity" value="" placeholder="e.g. 1, 2, ..."></td>
+                        <td align="left"><input type="text" name="quantity" value="12" placeholder="e.g. 1, 2, ..."></td>
                     </tr>
                     <tr>
                         <td align="right">Shipping Address</td>
-                        <td align="left"><input type="text" name="address" value=""></td>
+                        <td align="left"><input type="text" name="address" value="laksfdj123lkj213 123lj"></td>
                     </tr>
                     <tr>
                         <td align="right">Shipping Method</td>
                         <td align="left">
                             <select class="ship" name="shipping">
-                                <option value="overnight">Overnight</option>
-                                <option value="expedited">2-days expedited</option>
-                                <option value="ground">6-days ground</option>
+                                <option value="Overnight">Overnight</option>
+                                <option value="2-days expedited">2-days expedited</option>
+                                <option value="6-days ground">6-days ground</option>
                             </select>
                         </td>
                     </tr>
@@ -94,26 +83,26 @@
                 <table>
                     <tr>
                         <td align="right">Name on card</td>
-                        <td align="left"><input type="text" name="cardname" value="" placeholder="e.g. Peter Anteater"></td>
+                        <td align="left"><input type="text" name="cardname" value="pa" placeholder="e.g. Peter Anteater"></td>
                     </tr>
                     <tr>
                         <td align="right">Card Number</td>
-                        <td align="left"><input type="text" name="cardnumber" value=""></td>
+                        <td align="left"><input type="text" name="cardnumber" value="31213231"></td>
                     </tr>
                     <tr>
                         <td align="right">Expiration date</td>
-                        <td align="left"><input type="text" name="exprdate" value="" placeholder="MM/YY"></td>
+                        <td align="left"><input type="text" name="exprdate" value="32/32" placeholder="MM/YY"></td>
                     </tr>
                     <tr>
                         <td align="right">Security code</td>
-                        <td align="left"><input type="text" name="cvv" value="" placeholder="e.g. 123"></td>
+                        <td align="left"><input type="text" name="cvv" value="132" placeholder="e.g. 123"></td>
                     </tr>
                     <tr>
                         <td align="right">ZIP/Postal code</td>
-                        <td align="left"><input type="text" name="zipcode" value="" placeholder="e.g. 12345, 12345-6789"></td>
+                        <td align="left"><input type="text" name="zipcode" value="21321" placeholder="e.g. 12345, 12345-6789"></td>
                     </tr>
                 </table>
-                <input type="submit" value="Submit">
+                <input type="submit" name="submit" value="Submit">
             </form>
         </section>
     </body>

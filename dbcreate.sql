@@ -11,15 +11,16 @@ USE `Products`;
 --
 
 CREATE TABLE IF NOT EXISTS `Books` (
-  `title` varchar(255) NOT NULL,
-  `author` varchar(64) NOT NULL,
-  `edition` varchar(64) NOT NULL,
-  `price` int(11) DEFAULT NULL,
-  `year` int(11) DEFAULT NULL,
-  `ISBN` varchar(20) NOT NULL PRIMARY KEY,
-  `publisher` varchar(128) DEFAULT NULL,
-  `img` varchar(64) DEFAULT NULL,
-  `category` varchar(32) DEFAULT NULL
+    `title` VARCHAR(255) NOT NULL,
+    `author` VARCHAR(64) NOT NULL,
+    `edition` VARCHAR(64) NOT NULL,
+    `price` INT(11) DEFAULT NULL,
+    `year` INT(11) DEFAULT NULL,
+    `ISBN` VARCHAR(20) NOT NULL PRIMARY KEY,
+    `publisher` VARCHAR(128) DEFAULT NULL,
+    `img` VARCHAR(64) DEFAULT NULL,
+    `category` VARCHAR(32) DEFAULT NULL,
+    FOREIGN KEY (`category`) REFERENCES `Categories` (`cid`) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 --
@@ -52,8 +53,27 @@ INSERT INTO `Books` (`title`, `author`, `edition`, `price`, `year`, `ISBN`, `pub
 CREATE TABLE IF NOT EXISTS `Categories` (
     `cid` VARCHAR(3) PRIMARY KEY,
     `category` VARCHAR(64) NOT NULL
-) ENGINE = InnoDB;
+) ENGINE=InnoDB;
 
 INSERT INTO `Categories` (`cid`, `category`) VALUES
 ('BS', 'Biological Science'),
 ('SS', 'Social Science');
+
+CREATE TABLE IF NOT EXISTS `OrderInfo` (
+    `ISBN` VARCHAR(20) NOT NULL,
+    `order_num` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `firstname` VARCHAR(32) DEFAULT NULL,
+    `lastname` VARCHAR(32) DEFAULT NULL,
+    `phone` VARCHAR(20) DEFAULT NULL,
+    `quantity` INT(11) NOT NULL,
+    `address` VARCHAR(256) NOT NULL,
+    `ship_method` VARCHAR(32) NOT NULL,
+    `ccard_name` VARCHAR(32) NOT NULL,
+    `ccard_num` VARCHAR(32) NOT NULL,
+    `ccard_date` VARCHAR(8) NOT NULL,
+    `ccard_code` INT(11) NOT NULL,
+    `ccard_zip` VARCHAR(12) NOT NULL,
+    FOREIGN KEY (`ISBN`) REFERENCES `Books` (`ISBN`) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+ALTER TABLE `OrderInfo` AUTO_INCREMENT = 1;

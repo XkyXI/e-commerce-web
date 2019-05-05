@@ -1,24 +1,15 @@
-<?php require_once "dbconnect.php"; ?>
+<?php
+    require_once "dbconnect.php";
+    if (isset($_GET['category']))
+        $cty_id = $_GET['category'];
+    else
+        exit("<p>Category error...</p>");
+?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <?php
-            // change the title base on the category
-            if (!isset($_GET['category'])) {
-                exit("Category error");
-            }
-            $cty_id = $_GET['category'];
-            $res = $pdo->query("SELECT category FROM Categories where cid=\"$cty_id\"");
-            $row = $res->fetch(PDO::FETCH_ASSOC);
-            if (!isset($row['category'])) {
-                exit("Data error");
-            }
-            $cty_name = $row['category'];
-            echo ('<title>Bookeater - ');
-            echo ($cty_name);
-            echo ('</title>');
-        ?>
+        <title>Bookeater</title>
         <link rel="stylesheet" href="/css/style.css">
     </head>
 
@@ -27,21 +18,23 @@
 
         <section>
             <?php
-                if (!(isset($cty_id) && isset($cty_name))) {
-                    exit('Data error');
-                }
-                echo ('<div class="cells-title"><span>');
-                echo ($cty_name);
-                echo ('</span></div><div class="cells">');
+                $res = $pdo->query("SELECT category FROM Categories where cid='$cty_id'");
+                $row = $res->fetch(PDO::FETCH_ASSOC);
+                if (!isset($row['category'])) exit("<p>Error while fetching data...</p>");
+                $cty_name = $row['category'];
+
+                printf('<div class="cells-title"><span>%s</span></div>', $cty_name);
+                echo('<div class="cells">');
                 // query all the products associated with the category
-                $stmt = $pdo->query("SELECT ISBN, title, author, price, img FROM Books WHERE category=\"$cty_id\"");
+                $stmt = $pdo->query("SELECT ISBN, title, author, price, img FROM Books WHERE category='$cty_id'");
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo ('<div class="cell">');
-                    echo ('<a href="detail.php?pid=' . $row['ISBN'] . '"><img src="' . $row['img'] . '"></a>');
-                    echo ('<div class="book-title cell-text">' . $row['title'] . '</div>');
-                    echo ('<div class="book-author cell-text">by ' . $row['author'] . '</div>');
-                    echo ('<div class="book-price cell-text">$' . $row['price'] . '</div>');
-                    echo ('</div>');
+                    printf ('<div class="cell">
+                        <a href="detail.php?pid=%s"><img src="%s"></a>
+                        <div class="book-title cell-text">%s</div>
+                        <div class="book-author cell-text">by %s</div>
+                        <div class="book-price cell-text">$%.2f</div>
+                        </div>', $row['ISBN'], $row['img'], $row['title'],
+                        $row['author'], $row['price']);
                 }
                 echo ('</div>');
             ?>
