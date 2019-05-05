@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bookeater</title>
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
-        <!-- header and navigation bar -->
-        <?php $cty_id = "index"; require_once "header.php" ?>
+    <!-- header and navigation bar -->
+    <?php $cty_id = "index"; require_once "header.php" ?>
         <!-- main content  -->
         <section>
             <div class="cells-title">

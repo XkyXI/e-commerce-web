@@ -31,14 +31,7 @@
     }
 ?>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bookeater - Order Details</title>
-        <link rel="stylesheet" href="/css/style.css">
-    </head>
-    <body>
-        <?php require_once "header.php"; ?>
+    <?php require_once "header.php"; ?>
         <section>
             <div class="cells-title">
                 <span>Order Details</span>

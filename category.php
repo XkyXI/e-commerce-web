@@ -6,16 +6,7 @@
         exit("<p>Category error...</p>");
 ?>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bookeater</title>
-        <link rel="stylesheet" href="/css/style.css">
-    </head>
-
-    <body>
-        <?php require_once "header.php"; ?>
-
+    <?php require_once "header.php"; ?>
         <section>
             <?php
                 $res = $pdo->query("SELECT category FROM Categories where cid='$cty_id'");

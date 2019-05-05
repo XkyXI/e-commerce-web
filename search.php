@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bookeater</title>
-        <link rel="stylesheet" href="/css/style.css">
-    </head>
-
-    <body>
-        <?php require_once "header.php"; ?>
+    <?php require_once "header.php"; ?>
 
         <section>
             <?php
@@ -17,7 +9,7 @@
 
                 $min_query_length = 3;
                 if (strlen($query) >= $min_query_length) {
-                    // query title, author, ISBN, and category
+                    // query title, author, ISBN(exact), and category
                     $sql = "SELECT DISTINCT `title`, `author`, `price`, `ISBN`, `img` FROM `Books`, `Categories` WHERE (
                                 UPPER(`Books`.`title`) LIKE UPPER(:ql) or UPPER(`Books`.`author`) LIKE UPPER(:ql) or
                                 (`Books`.`ISBN` = :q) or `Categories`.`cid` = `Books`.`category` AND

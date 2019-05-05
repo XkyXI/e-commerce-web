@@ -53,6 +53,11 @@ nav input[type=text] {
     border: none;
     margin-left: 0px;
 }
+/* Removes the arrow from search bar  */
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
 
 /* format the sub header */
 .cells-title {

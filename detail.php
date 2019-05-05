@@ -1,15 +1,4 @@
-<?php require_once "dbconnect.php"; ?>
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bookeater</title>
-        <link rel="stylesheet" href="/css/style.css">
-        <script type="text/javascript" src="/formScript.js"></script>
-    </head>
-
-    <body>
-        <?php require_once "header.php"; ?>
+    <?php require_once "header.php"; ?>
 
         <section> <!-- content contains an image and some descriptions -->
             <?php
