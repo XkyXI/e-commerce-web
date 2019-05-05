@@ -14,6 +14,8 @@ function validateForm() {
     var pnum = f["phone"].value;
     var quan = f["quantity"].value;
     var addr = f["address"].value;
+    var city = f["city"].value;
+    var state = f["state"].value;
     var shipping = f["shipping"].value;
     var cardname = f["cardname"].value;
     var cnum = f["cardnumber"].value;
@@ -24,7 +26,7 @@ function validateForm() {
     // check everything is filled in
     if (isEmpty(fname) || isEmpty(lname) || isEmpty(pnum) || isEmpty(quan) || isEmpty(addr) ||
         isEmpty(shipping) || isEmpty(cardname) || isEmpty(cnum) || isEmpty(exprdate) ||
-        isEmpty(ccode) || isEmpty(pcode)) {
+        isEmpty(ccode) || isEmpty(pcode) || isEmpty(city) || isEmpty(state)) {
         alert("All entries must be filled out");
         return false;
     }
@@ -41,6 +43,14 @@ function validateForm() {
     // need to double escape because of escaping -
     if (!checkPattern(addr, "^[A-Za-z0-9\\.\\,\\'\\-\\s\\#]+$")) {
         alert("Address contains invalid characters");
+        return false;
+    }
+    if (!checkPattern(city, "^[A-Za-z]+$")) {
+        alert("City contains invalid characters");
+        return false;
+    }
+    if (!checkPattern(state, "^[A-Za-z]+$")) {
+        alert("State contains invalid characters");
         return false;
     }
     if (!checkPattern(cnum, "^[0-9]+$")) {
@@ -61,30 +71,4 @@ function validateForm() {
     }
 
     return true;
-}
-
-function composeBody () {
-    var f = document.forms["orderForm"];
-    var result = "Product id: " + f["id"].value + "\n\nClient infomation:";
-    result += "\nFirst Name: " + f["firstname"].value +
-                "\nLast Name: " + f["lastname"].value +
-                "\nPhone Number: " + f["phone"].value +
-                "\nQuantity: " + f["quantity"].value +
-                "\nAddress: " + f["address"].value +
-                "\nShipping Method: " + f["shipping"].value +
-                "\n\nShipping information:" +
-                "\nCard owner: " + f["cardname"].value +
-                "\nCard Number: " + f["cardnumber"].value +
-                "\nExpiration Date: " + f["exprdate"].value +
-                "\nSecurity Code: " + f["cvv"].value +
-                "\nZip Code: " + f["zipcode"].value;
-    return result;
-}
-
-// send an email with all user information
-function formAction () {
-    var email = "minghuc@uci.edu";
-    var emailSubject = "Purchase from Bookeater";
-    var emailBody = escape(composeBody()); // using escape to turn \n into a different format for mail client
-    document.location = "mailto:" + email + "?subject=" + emailSubject + "&body=" + emailBody;
 }

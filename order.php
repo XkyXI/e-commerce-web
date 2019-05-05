@@ -9,6 +9,8 @@
         $pnum = $_POST["phone"];
         $quan = $_POST["quantity"];
         $addr = $_POST["address"];
+        $city = $_POST["city"];
+        $state = $_POST["state"];
         $shipping = $_POST["shipping"];
         $cardname = $_POST["cardname"];
         $cnum = $_POST["cardnumber"];
@@ -17,7 +19,7 @@
         $pcode = $_POST["zipcode"];
         if (isEmpty($fname) || isEmpty($lname) || isEmpty($pnum) || isEmpty($quan) || isEmpty($addr) ||
             isEmpty($shipping) || isEmpty($cardname) || isEmpty($cnum) || isEmpty($exprdate) ||
-            isEmpty($ccode) || isEmpty($pcode)) {
+            isEmpty($ccode) || isEmpty($pcode) || isEmpty($state) || isEmpty($city)) {
             return "Must fill out all entries";
         }
         if (!preg_match("#^[0-9]{3}-[0-9]{3}-[0-9]{4}$#", $pnum))       return "Invalid phone number format";
@@ -47,8 +49,9 @@
                     if (($msg = validate()) != "") { // if all entries are validated
                         exit("<table><tr><td>Failed to order item for the following reason: <br> $msg... <td><tr></table>");
                     }
+                    $addr = $_POST['address'] . " " . $_POST['city'] . ", " . $_POST['state'] . " " . $_POST['zipcode'];
                     $data = [$_POST['id'], $_POST['firstname'], $_POST['lastname'], $_POST['phone'],
-                            $_POST['quantity'], $_POST['address'], $_POST['shipping'], $_POST['cardname'],
+                            $_POST['quantity'], $addr, $_POST['shipping'], $_POST['cardname'],
                             $_POST['cardnumber'], $_POST['exprdate'], $_POST['cvv'], $_POST['zipcode']];
                     if ($stmt->execute($data)) { // if successfully executed the query
                         $sql = "SELECT * FROM `OrderInfo` ORDER BY order_num DESC LIMIT 1";
