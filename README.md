@@ -17,7 +17,7 @@ Requirements:
 	- category.php generates products of different categories dynamically
 	- serach.php generates the products of the searched keyword
 	- detail.php generates the detail of the product dynamically
-2. When a user submits the form, first validated in the client side in formScript.js, and validated again in the server side in order.php, once finished, used PDO prepare to prevent sql injection.
+2. When a user submits the form, first validated in the client side in formScript.js, and validated again in the server side in order.php, once finished, used PDO prepare to prevent sql injection, and stored in the database Product, table OrderInfo.
 3. After storing the order detail, order.php will generate order details dynamically.
 4. The following function implements Ajax
 	- The search bar uses Ajax to provide search suggestion base on the available products in the database.
